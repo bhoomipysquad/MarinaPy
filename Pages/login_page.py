@@ -46,7 +46,7 @@ class LoginPage(BasePage):
         time.sleep(2)
 
 
-    def login(self, username, password):
+    def super_login(self, username, password):
         """Log in using provided username and password."""
         self.enter_username(username)
         self.enter_password(password)

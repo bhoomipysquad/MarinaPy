@@ -1,8 +1,6 @@
-from selenium.webdriver import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
-from selenium.webdriver.support.ui import Select
 
 class BasePage:
     def __init__(self, driver):
@@ -24,7 +22,7 @@ class BasePage:
         element.send_keys(text)
         time.sleep(1)
 
-    def capture_screenshot(self, file_name):
+    def save_screenshot(self, file_name):
         self.driver.save_screenshot(file_name)
 
     def scroll_up_down(self):
