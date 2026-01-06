@@ -33,12 +33,12 @@ def app_setup():
     driver.quit()
 
 
-# @pytest.fixture
-# def app_setup():
-#     driver = webdriver.Chrome()
-#     driver.maximize_window()
-#     driver.get("https://app-marinapy.pysquad.com/")
-#     login_page = LoginPage(driver)
-#     login_page.login("bhoomi+techno@pysquad.com", "bhumiB2111@")
-#     yield driver
-#     driver.quit()
+@pytest.fixture
+def marina_admin_login_setup():
+    driver = webdriver.Chrome()
+    driver.maximize_window()
+    driver.get("https://app-marinapy.pysquad.com/")
+    login_page = LoginPage(driver)
+    login_page.login("bhoomi+finalbookinadmin@pysquad.com", "bhumiB2111@")
+    yield driver
+    driver.quit()

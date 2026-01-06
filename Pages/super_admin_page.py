@@ -14,6 +14,10 @@ class Open_All_Menus(BasePage):
     claim_pending = (By.XPATH, "//div[@id='rc-tabs-0-tab-pending']//div[@class='all-tab']")
     Active = (By.XPATH, "//div[@id='rc-tabs-0-tab-active']//div[@class='all-tab']")
     Inactive = (By.XPATH, "//div[@id='rc-tabs-0-tab-inactive']//div[@class='all-tab']")
+    office_staff = (By.XPATH , "//div[@data-node-key='whiteCollar']")
+    Operation_staff = (By.XPATH , "//div[@data-node-key='blueCollar']")
+    invited = (By.XPATH , "//div[@data-node-key='user-invites']")
+    logo = (By.XPATH ,"//div[@class='logo']")
 
     def open_all_side_menus(self):
         self.click(By.XPATH, "//button[@type='button']")
@@ -24,7 +28,10 @@ class Open_All_Menus(BasePage):
             self.Active,
             self.Inactive,
             self.claim_pending,
-            self.users
+            self.users,
+            self.invited,
+            self.Operation_staff,
+            self.office_staff
         ]:
             self.click(*locator)
             self.scroll_up_down()
@@ -36,6 +43,9 @@ class Open_All_Menus(BasePage):
                 self.Inactive: "https://admin-marinapy.pysquad.com/marinas",
                 self.claim_pending: "https://admin-marinapy.pysquad.com/marinas",
                 self.users: "https://admin-marinapy.pysquad.com/settings/users",
+                self.invited: "https://admin-marinapy.pysquad.com/settings/users",
+                self.Operation_staff: "https://admin-marinapy.pysquad.com/settings/users",
+                self.office_staff: "https://admin-marinapy.pysquad.com/settings/users"
             }
             print(self.driver.current_url)
             assert self.driver.current_url == url_map.get(locator)
@@ -43,6 +53,10 @@ class Open_All_Menus(BasePage):
                 print(self.driver.current_url)
 
         self.click(By.XPATH, "//button[@type='button']")
+        self.click(By.XPATH,"//div[@class='logo']")
+        print(self.driver.current_url)
+        assert self.driver.current_url == self.dashboard
+        print(self.driver.current_url)
 
     def super_admin_log_out(self):
         self.click( By.XPATH,"//header[@class='ant-layout-header css-1wv2qmc']//div//div[@class='account-section']")

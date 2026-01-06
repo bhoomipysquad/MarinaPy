@@ -13,14 +13,12 @@ class BasePage:
         self.wait_for_element(by, value)
         element = self.driver.find_element(by, value)
         element.click()
-        time.sleep(1)
 
     def send_keys(self, by, value, text):
         self.wait_for_element(by, value)
         element = self.driver.find_element(by, value)
         element.clear()
         element.send_keys(text)
-        time.sleep(1)
 
     def save_screenshot(self, file_name):
         self.driver.save_screenshot(file_name)
