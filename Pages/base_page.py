@@ -1,3 +1,4 @@
+from selenium.webdriver import ActionChains
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
@@ -28,4 +29,11 @@ class BasePage:
         time.sleep(2)
         self.driver.execute_script("window.scrollTo(0, 0);")
         time.sleep(2)
+
+    def hover_event(self, by, value):
+        tooltip_element = self.driver.find_element(by, value)
+        actions = ActionChains(self.driver)
+        actions.move_to_element(tooltip_element).perform()  # Hover over element
+        time.sleep(2)  # Wait so you can see the tooltip
+
 
