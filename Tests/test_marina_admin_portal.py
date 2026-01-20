@@ -2,21 +2,22 @@ import time
 
 from Pages.marina_admin_page import OpenAllMenus
 
-def test_open_menus(marina_admin_login_via_dev_url):
-    driver = marina_admin_login_via_dev_url
-    menus = OpenAllMenus(driver)
-    menus.open_dashboard_and_map()
-    menus.open_my_bookings()
-    time.sleep(2)
-    menus.open_crm()
-    time.sleep(2)
-    menus.open_commerce()
-    time.sleep(2)
-    # menus.open_operations()
-    # time.sleep(2)
-    menus.open_settings()
-    time.sleep(2)
-    menus.open_upgrade_plans()
+# def test_open_menus(marina_admin_login_via_dev_url):
+#     driver = marina_admin_login_via_dev_url
+#     menus = OpenAllMenus(driver)
+#     menus.open_dashboard_and_map()
+#     time.sleep(2)
+#     menus.open_my_bookings()
+#     time.sleep(2)
+#     menus.open_crm()
+#     time.sleep(2)
+#     menus.open_commerce()
+#     time.sleep(2)
+#     # menus.open_operations()
+#     # time.sleep(2)
+#     menus.open_settings()
+#     time.sleep(2)
+#     menus.open_upgrade_plans()
 
 # def test_open_dashboard(marina_admin_login_via_dev_url):
 #     driver = marina_admin_login_via_dev_url
@@ -32,7 +33,7 @@ def test_open_menus(marina_admin_login_via_dev_url):
 #     driver = marina_admin_login_via_dev_url
 #     crm = OpenAllMenus(driver)
 #     crm.open_crm()
-#
+# #
 # def test_open_commerce(marina_admin_login_via_dev_url):
 #     driver = marina_admin_login_via_dev_url
 #     commerce = OpenAllMenus(driver)

@@ -6,8 +6,7 @@ from Pages.login_page import LoginPage
 
 
 @pytest.fixture
-def super_admin_setup():
-    """Setup WebDriver and login."""
+def super_admin_login():
     driver = webdriver.Chrome()
     driver.maximize_window()
     driver.get("https://admin-marinapy.pysquad.com/")
@@ -82,5 +81,35 @@ def marina_admin_login_setup():
     # login_page.send_keys(By.XPATH , "//input[@aria-label='OTP Input 4']" ,"4")
     # login_page.send_keys(By.XPATH , "//input[@aria-label='OTP Input 5']" ,"5")
     # login_page.send_keys(By.XPATH , "//input[@aria-label='OTP Input 6']" ,"6")
+    yield driver
+    driver.quit()
+
+
+
+@pytest.fixture
+def boater_acc_login():
+    driver = webdriver.Chrome()
+    driver.maximize_window()
+    driver.get("https://dev-marinapy.pysquad.com/")
+    login = LoginPage(driver)
+    assert  driver.current_url == "https://dev-marinapy.pysquad.com/"
+    time.sleep(1)
+    login.click(By.XPATH, "//button[@class='ant-btn css-1wv2qmc ant-btn-primary ant-btn-color-primary ant-btn-variant-solid']")
+    time.sleep(1)
+    login.click(By.XPATH , "//input[@id='email']")
+    login.send_keys(By.XPATH, "//input[@id='email']" , "bhoomi+newboater@pysquad.com")
+    login.click(By.XPATH,"//input[@id='password']")
+    login.send_keys(By.XPATH , "//input[@id='password']" , "bhumiB2111@")
+    login.click(By.XPATH,"//button[@type='submit']")
+    login.click(By.XPATH, "//input[@aria-label='OTP Input 1']")
+    assert driver.current_url == "https://dev-marinapy.pysquad.com/otp"
+    login.send_keys(By.XPATH, "//input[@aria-label='OTP Input 1']", "1")
+    login.send_keys(By.XPATH, "//input[@aria-label='OTP Input 2']", "2")
+    login.send_keys(By.XPATH, "//input[@aria-label='OTP Input 3']", "3")
+    login.send_keys(By.XPATH, "//input[@aria-label='OTP Input 4']", "4")
+    login.send_keys(By.XPATH, "//input[@aria-label='OTP Input 5']", "5")
+    login.send_keys(By.XPATH, "//input[@aria-label='OTP Input 6']", "6")
+    time.sleep(10)
+    assert driver.current_url == "https://dev-marinapy.pysquad.com/map"
     yield driver
     driver.quit()

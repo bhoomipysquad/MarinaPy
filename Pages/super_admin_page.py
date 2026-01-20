@@ -1,3 +1,5 @@
+import time
+
 from selenium.webdriver.common.by import By
 from .base_page import BasePage
 
@@ -55,6 +57,7 @@ class Open_All_Menus(BasePage):
         self.click(By.XPATH, "//button[@type='button']")
         self.click(By.XPATH,"//div[@class='logo']")
         print(self.driver.current_url)
+        time.sleep(5)
         assert self.driver.current_url == self.dashboard
         print(self.driver.current_url)
 
