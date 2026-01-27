@@ -54,14 +54,7 @@ def marina_admin_login_via_dev_url():
     login.click(By.XPATH ,"//span[normalize-space()='Login']")
     time.sleep(2)
     login.click(By.XPATH , "//input[@aria-label='OTP Input 1']")
-    assert driver.current_url == "https://dev-marinapy.pysquad.com/otp"
-    login.send_keys(By.XPATH, "//input[@aria-label='OTP Input 1']", "1")
-    login.send_keys(By.XPATH , "//input[@aria-label='OTP Input 2']" ,"2")
-    login.send_keys(By.XPATH , "//input[@aria-label='OTP Input 3']" ,"3")
-    login.send_keys(By.XPATH , "//input[@aria-label='OTP Input 4']" ,"4")
-    login.send_keys(By.XPATH , "//input[@aria-label='OTP Input 5']" ,"5")
-    login.send_keys(By.XPATH , "//input[@aria-label='OTP Input 6']" ,"6")
-    time.sleep(10)
+    login.otp()
     assert driver.current_url == "https://app-marinapy.pysquad.com/dashboard"
     yield driver
     driver.quit()
@@ -102,14 +95,46 @@ def boater_acc_login():
     login.send_keys(By.XPATH , "//input[@id='password']" , "bhumiB2111@")
     login.click(By.XPATH,"//button[@type='submit']")
     login.click(By.XPATH, "//input[@aria-label='OTP Input 1']")
-    assert driver.current_url == "https://dev-marinapy.pysquad.com/otp"
-    login.send_keys(By.XPATH, "//input[@aria-label='OTP Input 1']", "1")
-    login.send_keys(By.XPATH, "//input[@aria-label='OTP Input 2']", "2")
-    login.send_keys(By.XPATH, "//input[@aria-label='OTP Input 3']", "3")
-    login.send_keys(By.XPATH, "//input[@aria-label='OTP Input 4']", "4")
-    login.send_keys(By.XPATH, "//input[@aria-label='OTP Input 5']", "5")
-    login.send_keys(By.XPATH, "//input[@aria-label='OTP Input 6']", "6")
-    time.sleep(10)
+    login.otp()
     assert driver.current_url == "https://dev-marinapy.pysquad.com/map"
     yield driver
     driver.quit()
+
+
+
+
+
+first_name = (By.XPATH, "//input[@id='first_name']")
+last_name = (By.XPATH, "//input[@id='last_name']")
+email = (By.XPATH, "//input[@id='email']")
+password = (By.XPATH, "//input[@id='password1']")
+create_account = (By.XPATH, "//button[@type='submit']")
+@pytest.fixture
+def boater_acc_signup():
+    driver = webdriver.Chrome()
+    driver.maximize_window()
+    driver.get("https://dev-marinapy.pysquad.com/")
+    sign_up = LoginPage(driver)
+    assert  driver.current_url == "https://dev-marinapy.pysquad.com/"
+    sign_up.click(By.XPATH, "//span[normalize-space()='Sign Up']")
+    time.sleep(3)
+    assert driver.current_url == "https://dev-marinapy.pysquad.com/signup" , "signup page not opened"
+    sign_up.click(*first_name)
+    sign_up.send_keys1(first_name,"Bhoomi")
+    sign_up.click(*last_name)
+    sign_up.send_keys1(last_name,"Testing")
+    sign_up.click(*email)
+    sign_up.send_keys1(email,"bhoomi+abcclaim11@pysquad.com")
+    sign_up.click(*password)
+    sign_up.send_keys1(password,"bhumiB2111@")
+    sign_up.click(*create_account)
+    time.sleep(6)
+    sign_up.otp()
+    time.sleep(2)
+    assert driver.current_url == "https://dev-marinapy.pysquad.com/map"
+    yield driver
+    driver.quit()
+
+
+
+

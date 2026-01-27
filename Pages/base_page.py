@@ -1,5 +1,6 @@
 from selenium.common import TimeoutException
 from selenium.webdriver import ActionChains, Keys
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import time
@@ -46,8 +47,8 @@ class BasePage:
     def hover_event(self, by, value):
         tooltip_element = self.driver.find_element(by, value)
         actions = ActionChains(self.driver)
-        actions.move_to_element(tooltip_element).perform()  # Hover over element
-        time.sleep(2)  # Wait so you can see the tooltip
+        actions.move_to_element(tooltip_element).perform()
+        time.sleep(2)
 
     def is_text_visible(self, text, timeout=10):
         try:
@@ -60,8 +61,7 @@ class BasePage:
         element = self.driver.find_element(by, value)
         self.wait_for_element(by, value)
         actual_placeholder = element.get_attribute("placeholder")
-        assert actual_placeholder == expected_placeholder, (
-            f"Expected placeholder '{expected_placeholder}', "f"but got '{actual_placeholder}'")
+        assert actual_placeholder == expected_placeholder, (f"Expected placeholder '{expected_placeholder}', "f"but got '{actual_placeholder}'")
 
 
     def scroll_up_down_by_pixel(self):
@@ -100,7 +100,14 @@ class BasePage:
         file_input = self.driver.find_element(by, value)
         file_input.send_keys(file_path)
 
-    def switch_to_iframe(self, by, value):
-        iframe = self.driver.find_element(by, value)
-        self.driver.switch_to.frame(iframe)
+    def otp(self):
+        print(self.driver.current_url)
+        assert self.get_current_url() == "https://dev-marinapy.pysquad.com/otp"
+        self.send_keys(By.XPATH, "//input[@aria-label='OTP Input 1']", "1")
+        self.send_keys(By.XPATH, "//input[@aria-label='OTP Input 2']", "2")
+        self.send_keys(By.XPATH, "//input[@aria-label='OTP Input 3']", "3")
+        self.send_keys(By.XPATH, "//input[@aria-label='OTP Input 4']", "4")
+        self.send_keys(By.XPATH, "//input[@aria-label='OTP Input 5']", "5")
+        self.send_keys(By.XPATH, "//input[@aria-label='OTP Input 6']", "6")
+
 

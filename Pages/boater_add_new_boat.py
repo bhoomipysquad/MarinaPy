@@ -24,8 +24,9 @@ class Add_new_boat(BasePage):
     photos = (By.XPATH , "//span[@class='ant-upload']")
     input_photos = (By.XPATH,"//input[@name='file']")
     upload_documents_button =(By.XPATH , "//button[@title='Upload Documents']")
-    Document_type = (By.XPATH , "//div[@class='ant-modal-content']")
-    Add_boat_button = ()
+    document_type = (By.XPATH , "//div[@class='ant-modal-content']")
+    click_document_type_dropdown = (By.XPATH , "//span[@title='Registry']")
+    Add_boat_button = (By.XPATH , "//span[normalize-space()='Add Boat']")
 
     def add_new_boat(self):
         self.click(*self.collapse)
@@ -72,15 +73,23 @@ class Add_new_boat(BasePage):
         self.click(*self.registration_number)
         self.send_keys1((self.registration_number), "384002")
         self.tab_keys(*self.registration_number)
-        self.click(*self.photos)
         self.upload_file((self.input_photos),"/home/pys/Pictures/Screenshots/Screenshot from 2026-01-05 12-17-36.png")
-        self.click(*self.upload_documents_button)
         time.sleep(2)
-
-        # self.swi(*self.Document_type)
-        # print("Successfully switch frame")
-        # self.click(*self.Document_type)
-        # print("clicked on document type ")
-
+        # self.click(*self.upload_documents_button)
+        # time.sleep(3)
+        # print("clicked on document button")
+        # self.click(*self.document_type)
+        # time.sleep(3)
+        # print("clicked on document type")
+        # self.click(*self.click_document_type_dropdown)
+        # time.sleep(3)
+        self.click(*self.Add_boat_button)
+        time.sleep(3)
+        if self.is_text_visible("My Boats"):
+            assert self.get_current_url() == "https://dev-marinapy.pysquad.com/boats"
+            print("New boat added successfully")
+        else:
+            self.save_screenshot("new boat add issue.png")
+            assert False, "New boat not added"
 
 
